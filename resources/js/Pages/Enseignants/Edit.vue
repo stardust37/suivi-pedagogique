@@ -1,23 +1,10 @@
 <template>
   <div>
-    <h1>Modifier Enseignant</h1>
+    <h1>Modifier un enseignant</h1>
     <form @submit.prevent="submit">
-      <div>
-        <label>Matricule</label>
-        <input v-model="form.matricule" required>
-      </div>
-      <div>
-        <label>Nom</label>
-        <input v-model="form.nom" required>
-      </div>
-      <div>
-        <label>Prénom</label>
-        <input v-model="form.prenom" required>
-      </div>
-      <div>
-        <label>Spécialité</label>
-        <input v-model="form.specialite" required>
-      </div>
+      <input v-model="matricule" placeholder="Matricule" required />
+      <input v-model="nom" placeholder="Nom" required />
+      <input v-model="prenom" placeholder="Prénom" required />
       <button type="submit">Mettre à jour</button>
     </form>
   </div>
@@ -32,12 +19,18 @@ export default {
   },
   data() {
     return {
-      form: {...this.enseignant}
+      matricule: this.enseignant.matricule,
+      nom: this.enseignant.nom,
+      prenom: this.enseignant.prenom
     }
   },
   methods: {
     submit() {
-      Inertia.put(`/enseignants/${this.form.id}`, this.form)
+      Inertia.put(`/enseignants/${this.enseignant.id}`, {
+        matricule: this.matricule,
+        nom: this.nom,
+        prenom: this.prenom
+      })
     }
   }
 }
